@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Video Ad Deal - Smart Marketing Automation</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f5f7;
+      color: #1e3a8a;
+      line-height: 1.6;
+    }
+
+    /* Deal Banner */
+    .deal-banner {
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 700;
+      position: relative;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e3a8a;
+      color: white;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    header nav a {
+      color: white;
+      margin-left: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    header nav a:hover {
+      color: #fbbf24;
+      transform: translateY(-2px);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-container h3 {
+      font-size: 1.5rem;
+    }
+    
+    .logo-container img {
+      height: 45px;
+      width: 45px;
+      margin-right: 12px;
+      background-color: #fbbf24;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 30px 20px;
+      max-width: 900px;
+      margin: auto;
+      margin-bottom: 140px;
+    }
+
+    /* Quality Box */
+    .quality-box {
+      background: linear-gradient(135deg, #fbbf24, #fde68a);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      font-weight: bold;
+      color: #1e3a8a;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .quality-box:hover {
+      transform: translateY(-5px);
+    }
+    
+    .quality-box h3 {
+        margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    /* Input Fields */
+    .email-capture label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    .email-capture input, .email-capture select {
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .email-capture input:focus, .email-capture select:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+
+    button {
+      background-color: #1e3a8a;
+      color: #fbbf24;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      font-weight: 600;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Voice Selection Section */
+    .voice-selection {
+      margin: 25px 0;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .voice-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .voice-option {
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+    
+    .voice-option:hover {
+      border-color: #3b82f6;
+      transform: translateY(-3px);
+    }
+    
+    .voice-option.selected {
+      border-color: #1e3a8a;
+      background-color: #eff6ff;
+    }
+    
+    .voice-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .voice-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .voice-description {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+    
+    .play-button {
+      background: #1e3a8a;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .play-button:hover {
+      background: #3b82f6;
+      transform: scale(1.1);
+    }
+    
+    .play-button.playing {
+      background: #ef4444;
+    }
+
+    /* Sticky Buy Button */
+    .sticky-buy {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1e3a8a;
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-align: center;
+      z-index: 999;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    
+    .sticky-buy .price-anchor {
+        color: #fde68a;
+        font-weight: 500;
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+
+    .sticky-buy button {
+      width: 100%;
+    }
+
+    .sticky-buy:hover {
+      transform: translateX(-50%) translateY(-3px);
+    }
+
+    .sample-ad-box {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .sample-ad-box:hover {
+      transform: translateY(-3px);
+    }
+    
+    .sample-ad-box pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        color: #333;
+        border: 1px solid #ddd;
+        font-size: 0.9em;
+    }
+
+    /* Before/After */
+    .before-after {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Placeholder styles for images */
+    .before, .after {
+      width: 50%;
+      min-width: 30px;
+      overflow: hidden;
+      transition: width 0.3s ease;
+      background-color: #ddd;
+      height: 200px; /* Placeholder height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+    }
+
+    .before img, .after img {
+      /* In a real scenario, this would hold your images */
+      display: none; 
+    }
+
+    .before-after input[type=range] {
+      width: 100%;
+      margin-top: 15px;
+    }
+    
+    /* Social Proof Box */
+    .social-proof-box {
+        margin-top: 35px;
+        padding: 25px;
+        border: 2px solid #3b82f6;
+        border-radius: 12px;
+        background-color: #e0f2fe;
+    }
+    
+    .testimonial {
+        background-color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-style: italic;
+        border-left: 5px solid #fbbf24;
+    }
+    
+    .testimonial p {
+        color: #444;
+        font-size: 0.95em;
+    }
+
+    /* New Elements */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .benefit-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .benefit-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .guarantee-box {
+      background: linear-gradient(135deg, #10b981, #34d399);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 25px 0;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .faq-section {
+      margin-top: 40px;
+    }
+    
+    .faq-item {
+      margin-bottom: 15px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .faq-question {
+      padding: 15px;
+      background: #1e3a8a;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    .faq-answer {
+      padding: 15px;
+      display: none;
+    }
+    
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .loading-spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #1e3a8a;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+
+    @media (max-width: 768px) {
+      .before-after {
+        flex-direction: column;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      header nav {
+        margin-top: 10px;
+      }
+      
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .voice-options {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deal-banner">
+    🔥 Flash Deal! Only <span id="timer">60:00</span> left! Limited to **<span id="slotsLeft">7</span>/50** Slots!
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' x='0.1em' font-size='100'>🤖</text></svg>" alt="AI Logo">
+      <h3>AI Video Maker</h3>
+    </div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Examples</a>
+      <a href="#" onclick="redirectToCheckout()">Buy Now</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="quality-box">
+      <h3>High-Converting Ad in Minutes</h3>
+      * **HD Output:** Perfect for YouTube, TikTok, and Facebook.<br>
+      * **Custom Voice & Avatar:** Builds instant trust with your audience.<br>
+      * **Auto-Generated Script:** Proven to get clicks! **Full 45-Second Video Included.**
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🚀</div>
+        <h3>Lightning Fast</h3>
+        <p>Get a professional ad in minutes, not weeks</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💰</div>
+        <h3>Cost Effective</h3>
+        <p>Save hundreds compared to agency pricing</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📈</div>
+        <h3>Proven Results</h3>
+        <p>Optimized for maximum engagement and conversions</p>
+      </div>
+    </div>
+
+    <div class="guarantee-box">
+      🛡️ 100% Satisfaction Guarantee - If you're not happy with your AI ad, we'll refund your purchase!
+    </div>
+
+    <h2>Create Your AI Ad</h2>
+
+    <div class="email-capture">
+      <label for="productUrl">Product / Service URL (Where we find your offer):</label>
+      <input id="productUrl" type="url" placeholder="https://your-product-site.com/offer" required>
+
+      <label for="targetAudience">Target Audience:</label>
+      <input id="targetAudience" type="text" placeholder="e.g., Young Entrepreneurs / Homeowners / Busy Parents" required>
+
+      <label for="videoTone">Desired Video Tone:</label>
+      <select id="videoTone" required>
+        <option value="Urgent & High-Energy">Urgent & High-Energy (Focus on FOMO)</option>
+        <option value="Trustworthy & Professional">Trustworthy & Professional (Focus on facts)</option>
+        <option value="Emotional & Relatable">Emotional & Relatable (Focus on pain points)</option>
+        <option value="Fun & Quick-Paced">Fun & Quick-Paced (TikTok style)</option>
+      </select>
+      
+      <!-- Voice Selection Section -->
+      <div class="voice-selection">
+        <h3>Choose Your AI Voice</h3>
+        <p>Preview and select the perfect voice for your ad:</p>
+        
+        <div class="voice-options">
+          <div class="voice-option" data-voice="alex">
+            <div class="voice-icon">👨‍💼</div>
+            <div class="voice-name">Alex - Professional</div>
+            <div class="voice-description">Confident, corporate tone</div>
+            <button class="play-button" data-voice="alex">▶</button>
+          </div>
+          
+          <div class="voice-option" data-voice="sarah">
+            <div class="voice-icon">👩‍💼</div>
+            <div class="voice-name">Sarah - Trustworthy</div>
+            <div class="voice-description">Warm, reassuring tone</div>
+            <button class="play-button" data-voice="sarah">▶</button>
+          </div>
+          
+          <div class="voice-option" data-voice="mike">
+            <div class="voice-icon">🔥</div>
+            <div class="voice-name">Mike - Energetic</div>
+            <div class="voice-description">High-energy, persuasive</div>
+            <button class="play-button" data-voice="mike">▶</button>
+          </div>
+          
+          <div class="voice-option" data-voice="emma">
+            <div class="voice-icon">😊</div>
+            <div class="voice-name">Emma - Friendly</div>
+            <div class="voice-description">Casual, approachable tone</div>
+            <button class="play-button" data-voice="emma">▶</button>
+          </div>
+        </div>
+        
+        <input type="hidden" id="selectedVoice" value="alex">
+      </div>
+      
+      <label for="userEmail">Your Email (Required for Checkout):</label>
+      <input id="userEmail" type="email" placeholder="email@example.com" required>
+
+      <button onclick="generateAd()">Analyze & Generate Locked Preview</button>
+    </div>
+
+    <div class="loading" id="loadingIndicator">
+      <div class="loading-spinner"></div>
+      <p>AI is analyzing your product and generating your ad preview...</p>
+    </div>
+
+    <div id="adOutput" class="sample-ad-box" style="display:none;">
+      <h3>Your AI Ad Analysis & Preview:</h3>
+      <pre id="adPreview"></pre>
+    </div>
+    
+    <div class="social-proof-box">
+      <h3>Trusted by Hundreds of Small Businesses</h3>
+      <div class="testimonial">
+        <p>"Generated three ads in 10 minutes. The $5.99 one instantly outperformed our $500 agency ad!" - *Sarah K., E-commerce Store*</p>
+      </div>
+      <div class="testimonial">
+        <p>"The AI actually pulled the right pain points from my website! Highly recommended for quick A/B testing." - *Mike J., SaaS Startup*</p>
+      </div>
+      <div class="testimonial">
+        <p>"The voice selection feature is amazing! I could preview different tones until I found the perfect match for my brand." - *David L., Fitness Coach*</p>
+      </div>
+    </div>
+
+    <h2>Before / After Example</h2>
+
+    <div class="before-after">
+      <div class="before">
+        BEFORE: Static Image Ad
+      </div>
+      <div class="after">
+        AFTER: Dynamic AI Video Ad
+      </div>
+    </div>
+
+    <input type="range" id="slider" min="0" max="100" value="50">
+    
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">How long does it take to receive my AI ad?</div>
+        <div class="faq-answer">
+          <p>Once you complete your purchase, you'll receive your custom AI-generated ad within 24 hours. In most cases, it's delivered much faster!</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">What if I don't like the ad generated?</div>
+        <div class="faq-answer">
+          <p>We offer a 100% satisfaction guarantee. If you're not happy with the ad, we'll either revise it based on your feedback or provide a full refund.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">Can I use the ad on multiple platforms?</div>
+        <div class="faq-answer">
+          <p>Yes! Your AI-generated ad comes in formats optimized for YouTube, Facebook, Instagram, TikTok, and more. You'll receive all versions with your purchase.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">Do I need any technical skills to use this?</div>
+        <div class="faq-answer">
+          <p>Not at all! Our system is designed to be completely user-friendly. Just provide your product URL and preferences, and we handle the rest.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">Can I change the voice after generating the ad?</div>
+        <div class="faq-answer">
+          <p>Yes! If you're not satisfied with the voice selection, you can request a revision with a different voice at no additional cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-buy">
+    <p class="price-anchor">Stop Paying $500+ for a Single Ad</p>
+    <button onclick="redirectToCheckout()">Unlock Your Custom AI Ad for $5.99</button>
+  </div>
+
+<script>
+/* ---------------------------
+   COUNTDOWN TIMER - FIXED
+---------------------------- */
+let timeLeft = 60 * 60; // 60 minutes
+let alertShown = false;
+let slotsLeft = 7;
+
+function updateTimer() {
+  const timer = document.getElementById("timer");
+  const slotsElement = document.getElementById("slotsLeft");
+  
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+  if (seconds < 10) seconds = "0" + seconds;
+
+  timer.innerText = minutes + ":" + seconds;
+  slotsElement.innerText = slotsLeft;
+
+  // Update slot counter in the banner
+  const banner = document.querySelector(".deal-banner");
+  banner.innerHTML = `🔥 Flash Deal! Only <span id="timer">${minutes + ":" + seconds}</span> left! Limited to **${slotsLeft}/50** Slots!`;
+
+  if (timeLeft === 60 && !alertShown) {
+    alertShown = true;
+    alert("Hurry! Only 1 minute left for the deal!");
+  }
+
+  if (timeLeft > 0) {
+    timeLeft--;
+    setTimeout(updateTimer, 1000);
+  } else {
+    timer.innerText = "EXPIRED";
+    // Optionally disable buttons here
+    document.querySelector(".sticky-buy button").disabled = true;
+  }
+}
+
+updateTimer();
+
+/* ---------------------------
+   VOICE SELECTION FUNCTIONALITY
+---------------------------- */
+document.addEventListener('DOMContentLoaded', function() {
+  // Voice selection
+  const voiceOptions = document.querySelectorAll('.voice-option');
+  const selectedVoiceInput = document.getElementById('selectedVoice');
+  
+  voiceOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      // Remove selected class from all options
+      voiceOptions.forEach(opt => opt.classList.remove('selected'));
+      
+      // Add selected class to clicked option
+      this.classList.add('selected');
+      
+      // Update hidden input with selected voice
+      selectedVoiceInput.value = this.dataset.voice;
+    });
+  });
+  
+  // Voice preview functionality
+  const playButtons = document.querySelectorAll('.play-button');
+  let currentlyPlaying = null;
+  
+  playButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent triggering the parent click event
+      
+      const voiceId = this.dataset.voice;
+      
+      // If this voice is already playing, stop it
+      if (currentlyPlaying === voiceId) {
+        stopAllVoices();
+        currentlyPlaying = null;
+        return;
+      }
+      
+      // Stop any currently playing voice
+      stopAllVoices();
+      
+      // Start playing this voice
+      currentlyPlaying = voiceId;
+      this.textContent = '⏹';
+      this.classList.add('playing');
+      
+      // In a real implementation, this would play an actual audio sample
+      // For this demo, we'll simulate playback with a timeout
+      setTimeout(() => {
+        stopAllVoices();
+        currentlyPlaying = null;
+      }, 3000); // Simulate 3 seconds of playback
+    });
+  });
+  
+  function stopAllVoices() {
+    playButtons.forEach(button => {
+      button.textContent = '▶';
+      button.classList.remove('playing');
+    });
+  }
+  
+  // Select the first voice by default
+  if (voiceOptions.length > 0) {
+    voiceOptions[0].classList.add('selected');
+  }
+});
+
+/* ---------------------------------------------
+   AD GENERATOR - GATED CONTENT (PAYWALL LOGIC)
+------------------------------------------------ */
+function generateAd() {
+  const url = document.getElementById("productUrl").value;
+  const audience = document.getElementById("targetAudience").value || "Business Owners";
+  const tone = document.getElementById("videoTone").value;
+  const email = document.getElementById("userEmail").value;
+  const selectedVoice = document.getElementById("selectedVoice").value;
+  
+  if (!email.includes('@')) {
+      alert("Please enter a valid email address first.");
+      document.getElementById("userEmail").focus();
+      return;
+  }
+  if (!url.startsWith('http')) {
+      alert("Please enter a valid URL (starting with http:// or https://) for product analysis.");
+      document.getElementById("productUrl").focus();
+      return;
+  }
+  
+  // Show loading indicator
+  document.getElementById("loadingIndicator").style.display = "block";
+  document.getElementById("adOutput").style.display = "none";
+  
+  // Simulate AI processing time
+  setTimeout(() => {
+    // --- SIMULATED AI ANALYSIS ---
+    let scrapedFeature = "Our revolutionary 'One-Click Setup' feature";
+    let painPoint = "The stress and cost of traditional advertising methods";
+    let hookAngle = "";
+    let openingLine = "";
+    let avatarStyle = "";
+    
+    // Dynamic logic based on tone
+    if (tone.includes("Urgent")) {
+        hookAngle = "Focus on 'Missing Out' and 'Immediate Action'";
+        openingLine = `Stop wasting time! Did you know 90% of ${audience} are missing out on this?`;
+        avatarStyle = "An authoritative, energetic male presenter.";
+    } else if (tone.includes("Trustworthy")) {
+        hookAngle = "Focus on 'Security' and 'Reliable Results'";
+        openingLine = `For ${audience}, reliability is key. Let's solve ${painPoint.toLowerCase()} together.`;
+        avatarStyle = "A calm, professional female presenter.";
+    } else if (tone.includes("Emotional")) {
+        hookAngle = "Focus on 'Relief' and 'Simplicity'";
+        openingLine = `We know how stressful ${painPoint.toLowerCase()} is. But it doesn't have to be...`;
+        avatarStyle = "A friendly, casual presenter.";
+    } else {
+        hookAngle = "Focus on 'Fun' and 'Viral Sharing'";
+        openingLine = `Wait, what?! You can actually get ${scrapedFeature.toLowerCase()}? Yes, you can!`;
+        avatarStyle = "A vibrant, expressive presenter.";
+    }
+    
+    // Get voice name for display
+    let voiceName = "Alex - Professional";
+    switch(selectedVoice) {
+      case "sarah":
+        voiceName = "Sarah - Trustworthy";
+        break;
+      case "mike":
+        voiceName = "Mike - Energetic";
+        break;
+      case "emma":
+        voiceName = "Emma - Friendly";
+        break;
+    }
+
+    // 1. Create the simulated, organized Teaser
+    const scriptTeaser = `
+=============================================
+  AI MARKETING ANALYSIS (In Progress)
+=============================================
+  ✅ Scraped URL: ${url}
+  ✅ Target Audience: ${audience}
+  ✅ Desired Tone: ${tone}
+  ✅ Selected Voice: ${voiceName}
+  ✅ Key Feature Identified (Simulated): ${scrapedFeature}
+  ✅ Primary Customer Pain Point (Simulated): ${painPoint}
+  ✅ Suggested Hook Angle: ${hookAngle}
+  
+---------------------------------------------
+  AI SCRIPT TEASER (The Hook - 15s)
+---------------------------------------------
+  [SCENE: Fast-paced graphic animation / Text-on-screen overlay]
+  
+  AVATAR: (Voiceover, tone reflects choice)
+  "${openingLine}"
+
+  (Visuals change rapidly. Music reflecting the tone starts.)
+
+  AVATAR: (Appearing on screen - ${avatarStyle})
+  "This is the game changer you asked for: **${scrapedFeature}**! 
+  It instantly eliminates that dreaded ${painPoint.toLowerCase()}."
+  
+---------------------------------------------
+  🚨 FULL 45s HD VIDEO SCRIPT LOCKED 🚨
+---------------------------------------------
+  The remaining professional script (Body & Call-to-Action),
+  the final high-resolution voiceover, and the HD video render
+  are reserved.
+
+  Your custom ad is ready! Pay $5.99 now to instantly unlock 
+  and download the complete, ready-to-use AI Ad sent to your email.
+  
+  (Proceed to checkout via the 'Unlock Now' button below)
+=============================================
+`;
+
+    // 2. Set the content and display the output box
+    document.getElementById("adPreview").innerText = scriptTeaser;
+    document.getElementById("loadingIndicator").style.display = "none";
+    document.getElementById("adOutput").style.display = "block";
+    
+    // 3. Inform the user
+    alert("Preview Generated! Your custom ad analysis is complete. Scroll down and click 'Unlock Your Custom AI Ad for $5.99' to receive the HD video instantly!");
+  }, 2000); // 2 second delay to simulate processing
+}
+
+/* ---------------------------------------------
+   CHECKOUT REDIRECTION FUNCTION (The Pay Link)
+------------------------------------------------ */
+function redirectToCheckout() {
+  // 1. Capture the inputs from the form before redirecting
+  const url = document.getElementById("productUrl").value;
+  const audience = document.getElementById("targetAudience").value;
+  const tone = document.getElementById("videoTone").value;
+  const email = document.getElementById("userEmail").value;
+  const selectedVoice = document.getElementById("selectedVoice").value;
+  
+  // Check if a valid email was entered
+  if (!email.includes('@') || email.length < 5) {
+      alert("Please enter a valid email address to proceed to checkout and receive your ad.");
+      document.getElementById("userEmail").focus();
+      return;
+  }
+  
+  // --- !!! IMPORTANT: REPLACE THIS URL !!! ---
+  const baseCheckoutURL = "https://your-secure-payment-processor.com/checkout?";
+  
+  // Construct URL parameters to pass to the processor (Metadata for fulfillment)
+  const params = new URLSearchParams({
+    price: '5.99',
+    item: 'AI_Video_Ad',
+    userEmail: email,
+    productUrl: url,
+    adAudience: audience,
+    adTone: tone,
+    selectedVoice: selectedVoice
+  }).toString();
+
+  const finalCheckoutURL = baseCheckoutURL + params;
+  
+  // 2. Redirect the user to the secure checkout page
+  window.location.href = finalCheckoutURL;
+  
+  // Fallback for demonstration/testing (optional):
+  // alert("Redirecting to: " + finalCheckoutURL);
+}
+
+
+/* ---------------------------
+   BEFORE/AFTER SLIDER
+---------------------------- */
+const slider = document.getElementById("slider");
+slider.addEventListener("input", () => {
+  // Logic to adjust the visual appearance of the "Before" and "After" placeholder sections
+  document.querySelector(".before").style.width = (100 - slider.value) + "%";
+  document.querySelector(".after").style.width = slider.value + "%";
+});
+
+/* ---------------------------
+   FAQ TOGGLE FUNCTION
+---------------------------- */
+function toggleFAQ(element) {
+  const answer = element.nextElementSibling;
+  if (answer.style.display === "block") {
+    answer.style.display = "none";
+  } else {
+    answer.style.display = "block";
+  }
+}
+</script>
+
+</body>
+</html>
